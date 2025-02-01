@@ -9,6 +9,7 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from helpers import get_root_disk_usage
 from monitoring import check_system_and_sites
+from config import commands_keyboard
 
 # Загрузка переменных окружения из .env
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -23,7 +24,7 @@ dp = Dispatcher()
 
 @dp.message(Command("start"))
 async def start(message: Message):
-    await message.answer("Бот запущен! Используй /status для проверки состояния.")
+    await message.reply("Выберите команду:", reply_markup=commands_keyboard)
 
 @dp.message(Command("status"))
 async def check_status(message: Message):
