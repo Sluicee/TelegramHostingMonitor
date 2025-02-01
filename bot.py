@@ -34,7 +34,7 @@ async def check_status(message: Message):
     ram = psutil.virtual_memory().percent
     total, used, available, percent = get_root_disk_usage()
     response_text += f"🔹 CPU: {cpu}%\n🔹 RAM: {ram}%\n"
-    response_text += f"🔹 Диск: {percent} ({available} свободно из {total})\n"
+    response_text += f"🔹 Диск: {percent:.2f}% ({available:.2f} свободно из {total:.2f})\n"
 
     # Мониторинг сайтов
     for site in WEBSITES:

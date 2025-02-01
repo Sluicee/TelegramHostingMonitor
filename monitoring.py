@@ -52,7 +52,7 @@ async def check_system_and_sites(bot: Bot):
             if ram_usage > MAX_RAM_USAGE:
                 alert_message += f"❗ RAM загружена: {ram_usage}%\n"
             if int(available) < MIN_FREE_DISK_GB:
-                alert_message += f"❗ Мало места на диске: {available} ГБ свободно из {total} ГБ\n"
+                alert_message += f"❗ Мало места на диске: {available:.2f} ГБ свободно из {total:.2f} ГБ\n"
 
             # 🌐 Проверка сайтов
             for site in WEBSITES:
