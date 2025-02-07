@@ -62,15 +62,16 @@ async def check_system_and_sites(bot: Bot):
                     if site in site_failures:  # Сайт уже был недоступен
                         alert_message += f"❌ {site} недоступен второй раз подряд!\n"
                     else:
-                        site_failures[site] = True
+                        site_failures[site] = True  # Сайт упал в первый раз
                         logging.warning(f"{site} недоступен. Повторная проверка через {RECHECK_INTERVAL} секунд.")
                         await asyncio.sleep(RECHECK_INTERVAL)
                         if not await check_site(site):  # Повторная проверка
                             alert_message += f"❌ {site} недоступен после повторной проверки!\n"
                         else:
-                            del site_failures[site]  # Сайт восстановился
+                            site_failures.pop(site, None)  # Сайт восстановился, удаляем его из словаря
                 else:
-                    site_failures.pop(site, None)  # Сайт снова доступен
+                    if site in site_failures:
+                        site_failures.pop(site, None)  # Сайт снова доступен, удаляем его из словаря
 
             # 📩 Отправка сообщения, если есть алерты
             if alert_message:
